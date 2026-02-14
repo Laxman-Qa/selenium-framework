@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+
+    <Appenders>
+
+        <Console name="Console">
+            <PatternLayout pattern="%d{HH:mm:ss} %-5level %c - %msg%n"/>
+        </Console>
+
+        <RollingFile name="File"
+                     fileName="logs/automation.log"
+                     filePattern="logs/automation-%d{dd-MM-yyyy}.log">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} %-5level %c - %msg%n"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
