@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
@@ -25,13 +26,19 @@ public class BaseTest {
     @BeforeMethod
     public void setup() {
     	
+    	
+    	ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new"); // Selenium 4 recommended
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--disable-gpu");
+    	
         prop = ConfigReader.initProperties();
 
         String browser = prop.getProperty("browser").toLowerCase();
 
         if (browser.equalsIgnoreCase("chrome")) {
 
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(options);
             log.info("Launching Chrome browser");
 
         } else if (browser.equalsIgnoreCase("firefox")) {
