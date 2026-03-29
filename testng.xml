@@ -1,15 +1,17 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Mini Selenium Project" parallel="tests" thread-count="2">
 
-    <listeners>
-        <listener class-name="utils.TestListener"/>
-        <listener class-name="utils.RetryTransformer"/>
-    </listeners>
+	<listeners>
+		<listener class-name="utils.TestListener" />
+		<listener class-name="utils.RetryTransformer" />
+	</listeners>
 
-    <test name="Login Logout Tests">
-        <classes>
-            <class name="test.LoginLogoutTest"/>
-        </classes>
-    </test>
+	<test name="Login Logout Tests">
+		<classes>
+			<class name="test.LoginLogoutTest" />
+			<class name="test.InvalidLoginTest" />
+
+		</classes>
+	</test>
 
 </suite>

@@ -2,17 +2,17 @@ package pages;
 
 import org.openqa.selenium.*;
 
-public class LoginPage {
+public class LoginPage extends BasePage{
 
-    WebDriver driver;
-
-    By username = By.id("username");
-    By password = By.id("password");
-    By submit = By.id("submit");
-
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
+	public LoginPage(WebDriver driver) {
+        super(driver);
     }
+
+    private By username = By.id("username");
+    private By password = By.id("password");
+    private By submit = By.id("submit");
+
+    
 
     public void login(String user, String pass) {
         driver.findElement(username).sendKeys(user);

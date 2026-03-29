@@ -2,16 +2,16 @@ package pages;
 
 import org.openqa.selenium.*;
 
-public class SecureAreaPage {
+public class SecureAreaPage extends BasePage{
 
-    WebDriver driver;
+	 public SecureAreaPage(WebDriver driver) {
+	        super(driver);
+	    }
 
     By successMsg = By.className("post-title");
     By logout = By.linkText("Log out");
 
-    public SecureAreaPage(WebDriver driver) {
-        this.driver = driver;
-    }
+   
 
     public boolean isLoginSuccessful() {
         return driver.findElement(successMsg)

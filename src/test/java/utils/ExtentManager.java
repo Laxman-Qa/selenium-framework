@@ -6,11 +6,9 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class ExtentManager {
 
-    private static ExtentReports extent;
+  //  private static ExtentReports extent;
 
     public static ExtentReports getExtent() {
-
-        if (extent == null) {
 
             ExtentSparkReporter spark =
                 new ExtentSparkReporter("reports/ExtentReport.html");
@@ -19,7 +17,7 @@ public class ExtentManager {
             spark.config().setReportName("Login Logout Test Report");
             spark.config().setTheme(Theme.STANDARD);
 
-            extent = new ExtentReports();
+            ExtentReports extent = new ExtentReports();
             extent.attachReporter(spark);
 
             extent.setSystemInfo("Project", "Practice Test Automation");
@@ -27,7 +25,7 @@ public class ExtentManager {
             extent.setSystemInfo("Browser", "Chrome");
             extent.setSystemInfo("OS", System.getProperty("os.name"));
             extent.setSystemInfo("Java Version", System.getProperty("java.version"));
-        }
+        
         return extent;
     }
 }
