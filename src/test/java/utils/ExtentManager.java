@@ -10,15 +10,13 @@ public class ExtentManager {
 
     public static ExtentReports getExtent() {
 
-            ExtentSparkReporter spark =
-                new ExtentSparkReporter("reports/ExtentReport.html");
-
-            spark.config().setDocumentTitle("Mini Automation Project");
-            spark.config().setReportName("Login Logout Test Report");
-            spark.config().setTheme(Theme.STANDARD);
+    	ExtentSparkReporter reporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/reports/ExtentReport.html");
+    	reporter.config().setDocumentTitle("Mini Automation Project");
+    	reporter.config().setReportName("Login Logout Test Report");
+    	reporter.config().setTheme(Theme.STANDARD);
 
             ExtentReports extent = new ExtentReports();
-            extent.attachReporter(spark);
+            extent.attachReporter(reporter);
 
             extent.setSystemInfo("Project", "Practice Test Automation");
             extent.setSystemInfo("Module", "Login Logout");

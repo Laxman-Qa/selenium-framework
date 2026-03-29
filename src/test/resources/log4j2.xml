@@ -3,14 +3,26 @@
 
     <Appenders>
 
+        <!-- Console Appender -->
         <Console name="Console">
             <PatternLayout pattern="%d{HH:mm:ss} %-5level %c - %msg%n"/>
         </Console>
 
+        <!-- Rolling File Appender -->
         <RollingFile name="File"
                      fileName="logs/automation.log"
-                     filePattern="logs/automation-%d{dd-MM-yyyy}.log">
+                     filePattern="logs/automation-%d{dd-MM-yyyy}.log.gz">
+
             <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} %-5level %c - %msg%n"/>
+
+            <!-- REQUIRED: Policies -->
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+
+            <!-- Optional but recommended -->
+            <DefaultRolloverStrategy max="7"/>
+
         </RollingFile>
 
     </Appenders>
