@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven3'
-        jdk 'JDK11'
+         maven 'Maven' 
+        jdk 'JAVA_HOME'
     }
 
     environment {
@@ -21,7 +21,7 @@ pipeline {
 
         stage('Clean') {
             steps {
-                sh 'mvn clean'
+                sh 'mvn clean test'
             }
         }
 
