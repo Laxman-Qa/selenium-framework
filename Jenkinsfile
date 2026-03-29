@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-         maven 'Maven' 
-        jdk 'JAVA_HOME'
+        maven 'Maven'        // Must match Jenkins Global Tool name
+        jdk 'JAVA_HOME'      // Must match Jenkins Global Tool name
     }
 
     environment {
@@ -21,26 +21,28 @@ pipeline {
 
         stage('Clean') {
             steps {
-                sh 'mvn clean test'
+                bat 'mvn clean'
             }
         }
 
         stage('Compile') {
             steps {
-                sh 'mvn compile'
+                bat 'mvn compile'
             }
         }
 
         stage('Run Tests (Parallel)') {
             parallel {
+
                 stage('Login Tests') {
                     steps {
-                        sh 'mvn test -Dtest=LoginLogoutTest'
+                        bat 'mvn test -Dtest=LoginLogoutTest'
                     }
                 }
+
                 stage('Invalid Login Tests') {
                     steps {
-                        sh 'mvn test -Dtest=InvalidLoginTest'
+                        bat 'mvn test -Dtest=InvalidLoginTest'
                     }
                 }
             }
@@ -73,10 +75,13 @@ pipeline {
 
     post {
         success {
-            echo '✅ Pipeline Passed'
+            echo '✅ Pipeline Passed - All tests successful'
         }
         failure {
-            echo '❌ Pipeline Failed'
+            echo '❌ Pipeline Failed - Check console output'
+        }
+        always {
+            echo '📊 Execution Completed'
         }
     }
 }
