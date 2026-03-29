@@ -1,21 +1,35 @@
 package utils;
 
-import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.*;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
+import java.io.File;
+
 public class ExtentManager {
 
-  //  private static ExtentReports extent;
+    private static ExtentReports extent;
 
     public static ExtentReports getExtent() {
 
-    	ExtentSparkReporter reporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/reports/ExtentReport.html");
-    	reporter.config().setDocumentTitle("Mini Automation Project");
-    	reporter.config().setReportName("Login Logout Test Report");
-    	reporter.config().setTheme(Theme.STANDARD);
+        if (extent == null) {
 
-            ExtentReports extent = new ExtentReports();
+            // Create reports folder (IMPORTANT for Jenkins)
+            String reportPath = System.getProperty("user.dir") + "/reports";
+            File reportDir = new File(reportPath);
+
+            if (!reportDir.exists()) {
+                reportDir.mkdirs();
+            }
+
+            ExtentSparkReporter reporter =
+                    new ExtentSparkReporter(reportPath + "/ExtentReport.html");
+
+            reporter.config().setDocumentTitle("Mini Automation Project");
+            reporter.config().setReportName("Login Logout Test Report");
+            reporter.config().setTheme(Theme.STANDARD);
+
+            extent = new ExtentReports();
             extent.attachReporter(reporter);
 
             extent.setSystemInfo("Project", "Practice Test Automation");
@@ -23,7 +37,8 @@ public class ExtentManager {
             extent.setSystemInfo("Browser", "Chrome");
             extent.setSystemInfo("OS", System.getProperty("os.name"));
             extent.setSystemInfo("Java Version", System.getProperty("java.version"));
-        
+        }
+
         return extent;
     }
 }
