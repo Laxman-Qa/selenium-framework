@@ -1,11 +1,14 @@
 package test;
 
 import config.ConfigReader;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
@@ -18,6 +21,7 @@ public class BaseTest {
 
     protected WebDriver driver;
     protected Properties prop;
+    protected ChromeOptions options;
 
     protected static final Logger log =
             LogManager.getLogger(BaseTest.class);
@@ -25,13 +29,22 @@ public class BaseTest {
     @BeforeMethod
     public void setup() {
     	
+    	options = new ChromeOptions();
+
+    	options.addArguments("--headless=new");
+    	options.addArguments("--no-sandbox");
+    	options.addArguments("--disable-dev-shm-usage");
+    	options.addArguments("--remote-allow-origins=*");
+
+    	
+    	
         prop = ConfigReader.initProperties();
 
         String browser = prop.getProperty("browser").toLowerCase();
 
         if (browser.equalsIgnoreCase("chrome")) {
-
-            driver = new ChromeDriver();
+        	WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver(options);
             log.info("Launching Chrome browser");
 
         } else if (browser.equalsIgnoreCase("firefox")) {
